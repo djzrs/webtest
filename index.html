@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>自动更新数据</title>
+  <meta charset="UTF-8"> <!-- 设置字符编码为 UTF-8 -->
+</head>
+<body>
+  <div id="timeDisplay"></div>
+
+<h1>安徽省阜阳市室外</h1>
+<h2>ESP8266+DHT11+microblocks+tinywebdb+gpt3.5</h2>
+  <h1>数据显示区域</h1>
+  <p id="humidityDisplay"></p>
+  <p id="temperatureDisplay"></p>
+
+  <script>
+    function fetchData() {
+      // 获取湿度数据
+      fetch('http://tinywebdb.appinventor.space/api?user=mixly&secret=8455f446&action=get&tag=Humidity')
+        .then(response => response.json())
+        .then(data => {
+          // 更新页面上的湿度数据
+          document.getElementById('humidityDisplay').innerText = `湿度：${data.Humidity || 0}%`;
+        })
+        .catch(error => {
+          console.error('获取湿度数据时发生错误:', error);
+        });
+
+      // 获取温度数据
+      fetch('http://tinywebdb.appinventor.space/api?user=mixly&secret=8455f446&action=get&tag=Temperature')
+        .then(response => response.json())
+        .then(data => {
+          // 更新页面上的温度数据
+          const temperature = data.Temperature || 0; // 默认为0，避免出现 undefined
+          document.getElementById('temperatureDisplay').innerText = `温度：${temperature}℃`;
+        })
+        .catch(error => {
+          console.error('获取温度数据时发生错误:', error);
+        });
+    }
+
+    function updateTime() {
+      const now = new Date();
+      const timeDisplay = document.getElementById('timeDisplay');
+      timeDisplay.textContent = `当前时间：${now.toLocaleTimeString()}`;
+    }
+
+    // 每隔1秒更新时间
+    setInterval(updateTime, 1000);
+
+    // 每隔5秒更新数据
+    setInterval(fetchData, 5000);
+
+    // 初始加载数据
+    fetchData();
+    // 初始加载时间
+    updateTime();
+  </script>
+</body>
+</html>
