@@ -16,7 +16,7 @@
   <script>
     function fetchData() {
       // 获取湿度数据
-      fetch('http://tinywebdb.appinventor.space/api?user=mixly&secret=8455f446&action=get&tag=Humidity')
+      fetch('https://tinywebdb.appinventor.space/api?user=mixly&secret=8455f446&action=get&tag=Humidity')
         .then(response => response.json())
         .then(data => {
           // 更新页面上的湿度数据
@@ -27,7 +27,7 @@
         });
 
       // 获取温度数据
-      fetch('http://tinywebdb.appinventor.space/api?user=mixly&secret=8455f446&action=get&tag=Temperature')
+      fetch('https://tinywebdb.appinventor.space/api?user=mixly&secret=8455f446&action=get&tag=Temperature')
         .then(response => response.json())
         .then(data => {
           // 更新页面上的温度数据
